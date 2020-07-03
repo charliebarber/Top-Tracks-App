@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I created this app to fetch my Top Tracks from my LastFM account so I could later use it as a component on my personal site. Turns out, LastFM api provides limited data and does not provide any album art, so I have decided to not continue with the project and perhaps use Spotify API.
+
+If you want to try it you will need an API key which you need to use as an environment variable called REACT_APP_APIKEY
 
 ## Available Scripts
 
