@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import lastfmService from './services/lastfm';
+
+const Track = ({track}) => {
+    const artist = track.artist.name
+    const name = track.name
+    const imageObj = track.image[0]
+    const image = imageObj["#text"]
+
+
+    return (
+        <div>
+            {`${name} - ${artist}`}
+            <img src={image}></img>
+        </div>
+    )
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [topTracks, setTopTracks] = useState([])
+    
+    useEffect(() => {
+        lastfmService.getTopTracks()
+            .then((response) => {
+                setTopTracks((response.toptracks.track))
+            })
+    }, [])
+
+    return (
+        <div>
+            <h1>Top tracks for</h1>
+            {
+                topTracks.map((track) => <Track track={track} key={track.mbid}/>)
+            }
+        </div>
+    );
 }
 
 export default App;
